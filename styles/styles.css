@@ -1,0 +1,16 @@
+.page-content {
+    overflow:hidden;
+}
+
+
+.error{
+    color: red;
+}
+
+#btnCloseDoor{
+    display: none;
+}
+
+
+
+

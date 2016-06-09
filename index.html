@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+<head>
+    <title>Blank Cordova Mobile App Project Template (Lite)</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+        /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+        @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+    </style>
+    
+    <link rel="stylesheet" href="styles/framework7.ios.min.css">
+    <link rel="stylesheet" href="styles/framework7.ios.colors.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="styles/font-awesome-4.5.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <script src="cordova.js"></script>         <!-- phantom library, needed for Cordova api calls, added during build -->
+    <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+    <script src="js/jquery-2.2.1.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+</head>
+
+<body>
+    <div class="views">
+        <div class="view view-main">  
+            <div class="navbar">
+              <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="link open-popup" data-popup=".popup-help">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                  
+                    <div class="center">Smart Door</div>
+                  
+                    <div class="right"><a href="#" id="linkUserAccount" class="link open-popup" data-popup=".popup-userAccount"></a></div> 
+                </div>
+            </div>            
+            
+            <div class="pages navbar-through toolbar-through">
+                <div class="page" data-page="homePage">
+                    <div class="page-content">                      
+                        <div class="content-block-title" style="text-align: center;"><h1>Actions</h1></div>
+                        <div class="content-block">
+                            <div class="content-block-inner">
+                                <p><a href="#" id="btnOpenDoor" class="button button-big">Open door</a></p>    
+                                <p><a href="#" id="btnCloseDoor" class="button button-big button-fill color-red">Close door</a></p> 
+                                
+                                <!--<p><a href="#" id="btnOpenDoorWiFi" class="button button-big">Open door with wifi</a></p>
+                                <p><a href="#" id="btnOpenDoorInternet" class="button button-big">Open door with internet</a></p>-->
+                            </div>                                                
+                        </div>
+                        
+                        <div class="content-block-title">Sign up/Log in</div>
+                        <div class="content-block">                          
+                            <div class="content-block-inner">                              
+                                <p class="buttons-row">
+                                  <a href="#" id="btnSignUp" class="button button-fill open-popup" data-popup=".popup-signUpForm">Sign up</a>
+                                  <a href="#" id="btnLogIn" class="button open-popup" data-popup=".popup-logInForm">Log in</a>
+                                  <a href="#" id="btnLogOut" class="button" style="display: none;">Log out</a>
+                                </p>                                                               
+                            </div>                                                
+                        </div> 
+                    </div>
+                </div>                                           
+            </div>
+            
+            <div id="toolBarHome" class="toolbar">
+                <div class="toolbar-inner">
+                    <a href="#" class="link"></a>
+                    <a href="#" id="linkCheckUserActive" class="link">Check activity</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="popup popup-signUpForm">
+        <div class="content-block-title">Sign up</div>
+        <div class="list-block">
+            <form id="signUpForm">
+                <ul>                           
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-user"></i></div>
+
+                            <div class="item-inner" style="margin-left: 19px;">
+                                <div class="item-input">
+                                  <input type="text" name="nickname" placeholder="Enter your name">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-envelope-o"></i></div>
+
+                                <div class="item-inner">
+                                    <div class="item-input">
+                                        <input type="email" name="email" placeholder="Enter your email">
+                                    </div>
+                                </div>
+                            </div>
+                    </li>
+
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-key"></i></div>
+
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <input id="password1" type="password" name="password1" placeholder="Enter your password">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <input type="password" id="password2" name="password2" placeholder="Repeat your password" style="display: none;">                    
+                </ul>
+                
+                <div class="content-block">
+                    <p class="buttons-row">
+                        <input type="submit" id="btnSignUpSubmit" value="Sign up" class="button button-submit button-fill color-green"/>
+                        <a href="#" id="btnSignUpFormClose" class="button close-popup">Cancel</a>
+                    </p>                 
+                </div>                         
+            </form>                          
+        </div>                        
+    </div>
+    
+    <div class="popup popup-logInForm">
+        <div class="content-block-title">Log in</div>
+        <div class="list-block">
+            <form id="logInForm">
+                <ul>                           
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-user"></i></div>
+
+                            <div class="item-inner" style="margin-left: 19px;">
+                                <div class="item-input">
+                                  <input type="text" name="nickname" placeholder="Enter your name">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-key"></i></div>
+
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <input type="password" name="password1" placeholder="Enter your password">
+                                </div>
+                            </div>
+                        </div>
+                    </li>                              
+                </ul>
+                
+                <div class="content-block">
+                    <p class="buttons-row" id="btnsRowLogInForm">
+                        <input type="submit" value="Log in" class="button button-fill color-green"/>
+                        <a href="#"  class="button close-popup">Cancel</a>
+                    </p>                 
+                </div>                         
+            </form>                          
+        </div> 
+    </div>
+    
+    <div class="popup popup-userAccount">
+        <div class="content-block-title">Account</div> 
+        <div class="list-block">
+            <ul>
+                
+                    <li class="item-content">
+                        <div class="item-media"><i class="fa fa-user"></i></div>
+                        <div class="item-inner" style="margin-left: 19px;">
+                            <div class="item-title">User name</div>
+                            <div id="userNameAccount" class="item-after">?userName</div>
+                        </div>
+                    </li>                    
+                
+            
+                <!--<li>
+                    <li class="item-content">
+                        <div class="item-media"><i class="fa fa-envelope-o"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title">Email</div>
+                            <div id="userEmailAccount" class="item-after"></div>
+                        </div>
+                    </li>                    
+                </li>-->
+        
+                
+                    <li class="item-content">
+                        <div class="item-media"><i class="fa fa-key"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title">Password</div>
+                            <div id="userPasswordAccount" class="item-after"></div>
+                        </div>
+                    </li>                    
+                
+    
+                
+                    <li class="item-content">
+                        <div class="item-media"><i class="fa fa-child"></i></div>
+                        <div class="item-inner" style="margin-left: 20px;">
+                            <div class="item-title">Active</div>
+                            <div id="userActiveAccount" class="item-after"></div>
+                        </div>
+                    </li>                    
+                   
+            </ul>
+
+            <div class="content-block">
+                <p><a href="#" class="button close-popup">Close</a></p>                 
+            </div>   
+        </div>
+    </div>
+
+    <div class="popup popup-help">
+        <div class="content-block-title">Additional information</div>
+        
+        <div class="content-block">
+            <div class="content-block-inner">
+                <ul>
+                    <li>Register.</li>
+                    <li>Сheck your activity.</li>
+                    <li>If you have inactive account - ask your administrator for activate it.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="content-block">
+            <p><a href="#" class="button close-popup">Close</a></p>                 
+        </div>
+    </div>
+    
+    <script src="js/framework7.min.js"></script>
+    <script src="js/Door.js"></script>
+    <script src="js/DoorView.js"></script>
+    <script src="js/app.js"></script> 
+</body>
+</html>
